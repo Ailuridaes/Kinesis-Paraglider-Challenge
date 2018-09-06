@@ -34,6 +34,7 @@ namespace WeatherStationsEvents
                 {
                     // Send each weather item as an event to kinesis
                     string dataAsJson = JsonConvert.SerializeObject(weatherEvent);
+                    //Console.Write(dataAsJson);
                     using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(dataAsJson)))
                     {
                         var requestRecord = new PutRecordRequest
