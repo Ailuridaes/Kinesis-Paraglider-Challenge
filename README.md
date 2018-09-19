@@ -16,7 +16,7 @@ Goal - Find the optimal time to go Paragliding
 exports.handler = (event, context, callback) => {
     
     for (let i = 0; i < event.Records.length; i++) {
-        const eventRecord = Buffer.from(event.Records[i].kinesis.data, 'base64');
+        const eventRecord = JSON.parse(Buffer.from(event.Records[i].kinesis.data, 'base64'));
        //TODO
     }
     
@@ -26,18 +26,22 @@ exports.handler = (event, context, callback) => {
 
 # Level 2 - Single Site Notification
 - Goal - Find the best time to go fly at Torrey Pines Gliderport
-- 70 - 80 deg
-- <50% humidity
-- Wind SW to NW at 10-12 knots. Gusts below 15
+- Conditions
+  - <80% humidity
+  - Wind 230 to 290 degrees at 6-12 knots. Gusts below 20
 - Trigger a notification to inform when conditions are good to fly
 - Send info to Cloudwatch logs
 
-# Level 3
-- Multi Site Notification
-- One notification per site per day
-- Only notifiy during daylight hours - 9 AM to 6 PM
+# Level 3 - Multi Site Notification
+- Goal - Find the best time to go fly at more than one location
+- Use this website to determine the best conditions at another location or locations
+  - https://www.sdhgpa.com/sites-guide.html
 - Integrate AWS SNS to SMS service to send a notification to yourself
-//TODO add link to SNS documentation
+- Only send one notification per site per day
+- Only notify during daylight hours - 9 AM to 6 PM
+- Helpful docs
+  - https://docs.aws.amazon.com/sns/latest/dg/SubscribeTopic.html
+  - https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sns-examples-publishing-messages.html
 
 # Level 4 - Kinesis Data Analytics
 //Research - explore data analytics use cases
