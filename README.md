@@ -45,3 +45,5 @@ exports.handler = (event, context, callback) => {
 
 # Level 4 - Kinesis Data Analytics
 //Research - explore data analytics use cases
+- Use Kinesis Data Analytics to add a lambda function for pre-processing of records. Replace `NA` with values of zero on field `barometricPressure`.
+  - https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html
