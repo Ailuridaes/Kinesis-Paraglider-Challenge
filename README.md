@@ -1,6 +1,8 @@
 # Kinesis Paraglider Challenge Team Hackathon Challenge
 
-Use AWS's Kinesis service to find the optimal time to go Paragliding! 
+Use AWS's Kinesis service to find the optimal time to go Paragliding!  We will be using weather data provided by NOAA with a provided event streamer. 
+
+<image src='https://scijinks.gov/review/noaa/noaa-logo.png' width='300px' alt='NOAA' /><image src='https://images.unsplash.com/photo-1440130266107-787dd24d69d7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9b8f0de6077b535709700b6f79ed6db8&auto=format&fit=crop&w=1647&q=80' width='300px' alt='Paragliding' />
 
 ## Pre-requisites
 The following tools and accounts are required to complete these instructions.
