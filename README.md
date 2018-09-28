@@ -1,6 +1,14 @@
-# Kinesis-Paraglider-Challenge
+# Kinesis Paraglider Challenge Team Hackathon Challenge
 
-Goal - Find the optimal time to go Paragliding
+Use AWS's Kinesis service to find the optimal time to go Paragliding! 
+
+## Pre-requisites
+The following tools and accounts are required to complete these instructions.
+
+* [Sign-up for an AWS account](https://aws.amazon.com/)
+* [Install AWS CLI](https://aws.amazon.com/cli/)
+* [NodeJs](https://nodejs.org/en/)
+* [Install .NET Core 2.1](https://www.microsoft.com/net/download)
 
 # Level 0
 
