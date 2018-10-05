@@ -14,13 +14,14 @@ The following tools and accounts are required to complete these instructions.
 
 # Level 0
 
-- Create a Kinesis stream in the AWS console.
+- Create a Kinesis stream in the AWS console
   - Search for `Kinesis` in the services dropdown
   - Click create Kinesis Stream
   - Give it a name and 1 shard
-- Update kinesis key name in `src/WeatherStationsEvents/appsettings.json`.
+- Clone this repo to get the data streamer application on your machine
+- Update kinesis key name in `src/WeatherStationsEvents/appsettings.json`
 - Build and run `src/WeatherStationsEvents`
-  - Verify from logs in the termical that events are being generated
+  - Verify from logs in the terminal that events are being generated
 
 # Level 1
 - Goal - Create a lambda function to capture the streaming data from the Kinesis stream you just set up
@@ -51,6 +52,7 @@ exports.handler = (event, context, callback) => {
 - Goal - Find the best time to go fly at more than one location
 - Use this website to determine the best conditions at another location or locations
   - https://www.sdhgpa.com/sites-guide.html
+- Update your lambda function to check the streaming for flying conditions at multiple sites
 - Integrate AWS SNS to SMS service to send a notification to yourself
   - Only send one notification per site per day
   - Only notify during daylight hours - 9 AM to 6 PM
@@ -65,7 +67,7 @@ exports.handler = (event, context, callback) => {
 
 # Level 4 - Kinesis Data Analytics
 - Goal - Use Kinesis Data Analytics to add a lambda function for pre-processing records
-  - Replace `NA` with values of zero on field `barometricPressure`.
+  - Replace `NA` with values of zero on field `barometricPressure`
   - Check output of the processing of the new lambda function
 - Helpful docs
   - https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html
