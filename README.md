@@ -54,6 +54,16 @@ exports.handler = (event, context, callback) => {
   - https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sns-examples-publishing-messages.html
 
 # Level 4 - Kinesis Data Analytics
-//Research - explore data analytics use cases
-- Use Kinesis Data Analytics to add a lambda function for pre-processing of records. Replace `NA` with values of zero on field `barometricPressure`.
+- Goal - Use Kinesis Data Analytics to add a lambda function for pre-processing records
+  - Replace `NA` with values of zero on field `barometricPressure`.
+  - Check output of the processing of the new lambda function
+- Helpful docs
   - https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html
+<details><summary>Hints</summary>
+- Be very careful with the IAM role for DA permissions
+- Make sure the data streaming application is running when using DA
+- Data is base64 encoded!
+</details>
+
+# BOSS Level - Kinesis Data Anlalytics using SQL Editor
+- Within the Kinesis Data Anlytics Application you created for step 4 use the SQL editor to 
