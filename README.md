@@ -14,13 +14,17 @@ The following tools and accounts are required to complete these instructions.
 
 # Level 0
 
-- Create a Kinesis stream in AWS console.
+- Create a Kinesis stream in the AWS console.
+  - Search for `Kinesis` in the services dropdown
+  - Click create Kinesis Stream
+  - Give it a name and 1 shard
 - Update kinesis key name in `src/WeatherStationsEvents/appsettings.json`.
 - Build and run `src/WeatherStationsEvents`
+  - Verify from logs in the termical that events are being generated
 
 # Level 1
-
- - Here is a ready to go Lambda Function for reading a Kinesis Stream. Make it output the data to Cloudwatch Logs
+- Goal - Create a lambda function to capture the streaming data from the Kinesis stream you just set up
+- Here is a ready to go Lambda Function for reading a Kinesis Stream. Make it output the data to Cloudwatch Logs
 
 ```javascript
 exports.handler = (event, context, callback) => {
@@ -34,24 +38,30 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
+- Make sure to set up this function to trigger off of the Kinesis Stream
+
 # Level 2 - Single Site Notification
-- Goal - Find the best time to go fly at Torrey Pines Gliderport
-- Conditions
+- Goal - Find the best time to go fly at Torrey Pines Gliderport. Analyze the streaming data and determine if the weather is good for paragliding
+- Conditions - If the conditions at Torrey Pines satisfy these, then it's good to fly!
   - <80% humidity
   - Wind 230 to 290 degrees at 6-12 knots. Gusts below 20
-- Trigger a notification to inform when conditions are good to fly
-- Send info to Cloudwatch logs
+- Trigger a message to Cloudwatch logs to inform when conditions are good to fly
 
 # Level 3 - Multi Site Notification
 - Goal - Find the best time to go fly at more than one location
 - Use this website to determine the best conditions at another location or locations
   - https://www.sdhgpa.com/sites-guide.html
 - Integrate AWS SNS to SMS service to send a notification to yourself
-- Only send one notification per site per day
-- Only notify during daylight hours - 9 AM to 6 PM
+  - Only send one notification per site per day
+  - Only notify during daylight hours - 9 AM to 6 PM
 - Helpful docs
   - https://docs.aws.amazon.com/sns/latest/dg/SubscribeTopic.html
   - https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sns-examples-publishing-messages.html
+<details><summary>Hints</summary>
+<ul>
+  <li>You will have to persist the data across lambda invocations in order to know if a notification has already been sent...</li>
+</ul>
+</details>
 
 # Level 4 - Kinesis Data Analytics
 - Goal - Use Kinesis Data Analytics to add a lambda function for pre-processing records
@@ -60,10 +70,15 @@ exports.handler = (event, context, callback) => {
 - Helpful docs
   - https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html
 <details><summary>Hints</summary>
-- Be very careful with the IAM role for DA permissions
-- Make sure the data streaming application is running when using DA
-- Data is base64 encoded!
+<ul>
+  <li>Be very careful with the IAM role for Data Analytics permissions</li>
+  <li>Make sure the data streaming application is running when using DA</li>
+  <li>Data is base64 encoded!</li>
+</ul>
 </details>
 
-# BOSS Level - Kinesis Data Anlalytics using SQL Editor
-- Within the Kinesis Data Anlytics Application you created for step 4 use the SQL editor to 
+# BOSS Level - Real Time Analytics with SQL
+<p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/24ee58920381e83562f9780036a8df86ef9dec18/687474703a2f2f696d61676573322e66616e706f702e636f6d2f696d6167652f70686f746f732f31303430303030302f426f777365722d6e696e74656e646f2d76696c6c61696e732d31303430333230332d3530302d3431332e6a7067"><img src="https://camo.githubusercontent.com/24ee58920381e83562f9780036a8df86ef9dec18/687474703a2f2f696d61676573322e66616e706f702e636f6d2f696d6167652f70686f746f732f31303430303030302f426f777365722d6e696e74656e646f2d76696c6c61696e732d31303430333230332d3530302d3431332e6a7067" alt="boss" data-canonical-src="http://images2.fanpop.com/image/photos/10400000/Bowser-nintendo-villains-10403203-500-413.jpg" style="max-width:100%;"></a></p>
+- Within the Kinesis Data Analytics Application you created for step 4 use the SQL editor to perform real time analytics on the data
+- Create a new SQL query using the templated SQL examples. Use the source data a guide
+- Attach the resulting stream of the real time analytics to your original lambda function
