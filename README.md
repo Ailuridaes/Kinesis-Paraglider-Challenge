@@ -24,9 +24,8 @@ The following tools and accounts are required to complete these instructions.
 <ul>
   <li>Go to terminal</li>
   <li>CD into the repo you just cloned</li>
-  <li>CD into 'src'</li>
-  <li>CD into 'WeatherStationEvents</li>
-  <li>Run 'dotnet run'</li>
+  <li>CD into 'src/WeatherStationEvents'</li>
+  <li>Run 'dotnet restore' and 'dotnet run'</li>
   <li>Verify from logs in the terminal that events are being generated</li>
   <li>NOTE: This data is historical. It starts from an arbitrary date in August 2018 and continues up to today.</li>
 </ul>
@@ -34,8 +33,9 @@ The following tools and accounts are required to complete these instructions.
 
 
 # Level 1
-- Goal - Create a lambda function to capture the streaming data from the Kinesis stream you just set up
-- Here is a ready to go Lambda Function for reading a Kinesis Stream. Make it output the data to Cloudwatch Logs
+Goal - Create a lambda function to capture the streaming data from the Kinesis stream you just set up.
+
+- Here is a ready to go NodeJs 6.10 lambda function for reading a Kinesis Stream. Make the lambda function output the data to CloudWatch Logs
 
 ```javascript
 exports.handler = (event, context, callback) => {
@@ -58,7 +58,7 @@ exports.handler = (event, context, callback) => {
   <li>Make sure the 'Enable trigger' box is checked, then hit 'Add'</li>
 </ul>
 </details>
-<details><summary>Check cloudwatch logs for event record output</summary>
+<details><summary>Check CloudWatch logs for event record output</summary>
 <ul>
   <li>Once the trigger is setup, run the streaming application from the terminal</li>
   <li>A record should be pushed to the Kinesis stream every five seconds and processed by your lambda function</li>
@@ -67,13 +67,14 @@ exports.handler = (event, context, callback) => {
 </details>
 
 # Level 2 - Single Site Notification
-- Goal - Find the best time to go fly at Torrey Pines Gliderport. Analyze the streaming data and determine if the weather is good for paragliding
+Goal - Find the best time to go fly at **Torrey Pines Gliderport**. Analyze the streaming data and determine if the weather is good for paragliding.
+
 - Conditions - If the conditions at Torrey Pines satisfy these, then it's good to fly!
-  - <80% humidity
+  - Less than 80% humidity
   - Wind direction 230 to 290 degrees
-  - Wind speed 6-12 knots
+  - Wind speed 6 to 12 knots
   - Gusts below 20 knots
-- Trigger a message to Cloudwatch logs to inform when conditions are good to fly
+- Trigger a message to CloudWatch logs to inform when conditions are good to fly
 - Integrate AWS SNS to SMS service to send a notification to yourself
 - Helpful docs
   - https://docs.aws.amazon.com/sns/latest/dg/SubscribeTopic.html
@@ -85,7 +86,8 @@ exports.handler = (event, context, callback) => {
 </details>
 
 # Level 3 - Kinesis Data Analytics
-- Goal - Use Kinesis Data Analytics to add a lambda function for pre-processing records
+Goal - Use Kinesis Data Analytics to add a lambda function for pre-processing records.
+
   - Replace `NA` with values of zero on field `barometricPressure`
 - Hook up the output of the pre processing to your original lambda function
 <details><summary>Helpful docs</summary>
@@ -102,7 +104,8 @@ exports.handler = (event, context, callback) => {
 </details>
 
 # Level 4 - Multi Site Notification
-- Goal - Find the best time to go fly at more than one location
+Goal - Find the best time to go fly at more than one location.
+
 - Use this website to determine the best conditions at another location or locations
   - https://www.sdhgpa.com/sites-guide.html
   - Choose one (or more) of the 5 sites under 'Primary Sites'
@@ -119,6 +122,7 @@ exports.handler = (event, context, callback) => {
 
 # BOSS Level - Real Time Analytics with SQL
 <p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/24ee58920381e83562f9780036a8df86ef9dec18/687474703a2f2f696d61676573322e66616e706f702e636f6d2f696d6167652f70686f746f732f31303430303030302f426f777365722d6e696e74656e646f2d76696c6c61696e732d31303430333230332d3530302d3431332e6a7067"><img src="https://camo.githubusercontent.com/24ee58920381e83562f9780036a8df86ef9dec18/687474703a2f2f696d61676573322e66616e706f702e636f6d2f696d6167652f70686f746f732f31303430303030302f426f777365722d6e696e74656e646f2d76696c6c61696e732d31303430333230332d3530302d3431332e6a7067" alt="boss" data-canonical-src="http://images2.fanpop.com/image/photos/10400000/Bowser-nintendo-villains-10403203-500-413.jpg" style="max-width:100%;"></a></p>
+Goal - Use Kinesis Data Analytics to create a new data stream to better fit for the original lambda function application.
 
 - Within the Kinesis Data Analytics Application you created for step 3 use the SQL editor to perform real time analytics on the data
 - Create a new SQL query using the templated SQL examples. Use the source data as a guide
