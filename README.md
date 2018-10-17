@@ -69,7 +69,9 @@ exports.handler = (event, context, callback) => {
 - Goal - Find the best time to go fly at Torrey Pines Gliderport. Analyze the streaming data and determine if the weather is good for paragliding
 - Conditions - If the conditions at Torrey Pines satisfy these, then it's good to fly!
   - <80% humidity
-  - Wind 230 to 290 degrees at 6-12 knots. Gusts below 20
+  - Wind direction 230 to 290 degrees
+  - Wind speed 6-12 knots
+  - Gusts below 20 knots
 - Trigger a message to Cloudwatch logs to inform when conditions are good to fly
 - Integrate AWS SNS to SMS service to send a notification to yourself
 - Helpful docs
@@ -85,6 +87,8 @@ exports.handler = (event, context, callback) => {
 - Goal - Find the best time to go fly at more than one location
 - Use this website to determine the best conditions at another location or locations
   - https://www.sdhgpa.com/sites-guide.html
+  - Choose one (or more) of the 5 sites under 'Primary Sites'
+  - Look at the description of the site and find the recommended flying conditions at that site
 - Update your lambda function to check the streaming data for flying conditions at multiple sites
 - Update the function to: 
   - Only send one notification per site per day
