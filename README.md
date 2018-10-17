@@ -122,7 +122,7 @@ Goal - Find the best time to go fly at more than one location.
 
 # BOSS Level - Real Time Analytics with SQL
 <p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/24ee58920381e83562f9780036a8df86ef9dec18/687474703a2f2f696d61676573322e66616e706f702e636f6d2f696d6167652f70686f746f732f31303430303030302f426f777365722d6e696e74656e646f2d76696c6c61696e732d31303430333230332d3530302d3431332e6a7067"><img src="https://camo.githubusercontent.com/24ee58920381e83562f9780036a8df86ef9dec18/687474703a2f2f696d61676573322e66616e706f702e636f6d2f696d6167652f70686f746f732f31303430303030302f426f777365722d6e696e74656e646f2d76696c6c61696e732d31303430333230332d3530302d3431332e6a7067" alt="boss" data-canonical-src="http://images2.fanpop.com/image/photos/10400000/Bowser-nintendo-villains-10403203-500-413.jpg" style="max-width:100%;"></a></p>
-Goal - Use Kinesis Data Analytics to create a new data stream to better fit for the original lambda function application.
+Goal - Use Kinesis Data Analytics to create a new data stream to better fit the original lambda function application.
 
 - Within the Kinesis Data Analytics Application you created for step 3 use the SQL editor to perform real time analytics on the data
 - Create a new SQL query using the templated SQL examples. Use the source data as a guide
