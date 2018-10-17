@@ -16,12 +16,21 @@ The following tools and accounts are required to complete these instructions.
 
 - Create a Kinesis stream in the AWS console
   - Search for `Kinesis` in the services dropdown
-  - Click create Kinesis Stream
+  - Click `Create data steam` under the Kinesis data streams section on the Amazon Kinesis Dashboard
   - Give it a name and 1 shard
 - Clone this repo to get the data streamer application on your machine
-- Update kinesis key name in `src/WeatherStationsEvents/appsettings.json`
-- Build and run `src/WeatherStationsEvents`
-  - Verify from logs in the terminal that events are being generated
+- Update kinesis key name in `src/WeatherStationsEvents/appsettings.json` to match the name you just gave to your stream
+<details><summary>Build and run 'src/WeatherStationsEvents'</summary>
+<ul>
+  <li>Go to terminal</li>
+  <li>CD into the repo you just cloned</li>
+  <li>CD into 'src'</li>
+  <li>CD into 'WeatherStationEvents</li>
+  <li>Run 'dotnet run'</li>
+  <li>Verify from logs in the terminal that events are being generated</li>
+</ul>
+</details>
+
 
 # Level 1
 - Goal - Create a lambda function to capture the streaming data from the Kinesis stream you just set up
@@ -31,15 +40,30 @@ The following tools and accounts are required to complete these instructions.
 exports.handler = (event, context, callback) => {
     
     for (let i = 0; i < event.Records.length; i++) {
-        const eventRecord = JSON.parse(Buffer.from(event.Records[i].kinesis.data, 'base64'));
-       //TODO
+      const eventRecord = JSON.parse(Buffer.from(event.Records[i].kinesis.data, 'base64'));
+      console.log(eventRecord); 
     }
     
     callback(null, "Hello from Lambda");
 };
 ```
-
-- Make sure to set up this function to trigger off of the Kinesis Stream
+<details><summary>Make sure to set up this function to trigger off of the Kinesis Stream</summary>
+<ul>
+  <li>Navigate to the AWS console for your lambda function</li>
+  <li>Make sure the configuration tab is selected at the top of the page</li>
+  <li>From the list of triggers on the left panel in the Designer, choose Kinesis</li>
+  <li>Scroll down to the 'Configure triggers' section</li>
+  <li>Select the Kinesis Stream you previously created from the dropdown</li>
+  <li>Make sure the 'Enable trigger' box is checked, then hit 'Add'</li>
+</ul>
+</details>
+<details><summary>Check cloudwatch logs for event record output</summary>
+<ul>
+  <li>Once the trigger is setup, run the streaming application from the terminal</li>
+  <li>A record should be pushed to the Kinesis stream every five seconds and processed by your lambda function</li>
+  <li>On the lambda function page, click the 'Monitoring' tab at the top and click the 'View logs in CloudWatch button on the right</li>
+</ul>
+</details>
 
 # Level 2 - Single Site Notification
 - Goal - Find the best time to go fly at Torrey Pines Gliderport. Analyze the streaming data and determine if the weather is good for paragliding
@@ -47,18 +71,24 @@ exports.handler = (event, context, callback) => {
   - <80% humidity
   - Wind 230 to 290 degrees at 6-12 knots. Gusts below 20
 - Trigger a message to Cloudwatch logs to inform when conditions are good to fly
+- Integrate AWS SNS to SMS service to send a notification to yourself
+- Helpful docs
+  - https://docs.aws.amazon.com/sns/latest/dg/SubscribeTopic.html
+  - https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sns-examples-publishing-messages.html
+<details><summary>Hints</summary>
+<ul>
+  <li>Explore the event record object to find the attributes that need to be checked</li>
+</ul>
+</details>
 
 # Level 3 - Multi Site Notification
 - Goal - Find the best time to go fly at more than one location
 - Use this website to determine the best conditions at another location or locations
   - https://www.sdhgpa.com/sites-guide.html
-- Update your lambda function to check the streaming for flying conditions at multiple sites
-- Integrate AWS SNS to SMS service to send a notification to yourself
+- Update your lambda function to check the streaming data for flying conditions at multiple sites
+- Update the function to: 
   - Only send one notification per site per day
   - Only notify during daylight hours - 9 AM to 6 PM
-- Helpful docs
-  - https://docs.aws.amazon.com/sns/latest/dg/SubscribeTopic.html
-  - https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/sns-examples-publishing-messages.html
 <details><summary>Hints</summary>
 <ul>
   <li>You will have to persist the data across lambda invocations in order to know if a notification has already been sent...</li>
