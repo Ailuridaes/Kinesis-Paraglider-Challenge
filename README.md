@@ -28,6 +28,7 @@ The following tools and accounts are required to complete these instructions.
   <li>CD into 'WeatherStationEvents</li>
   <li>Run 'dotnet run'</li>
   <li>Verify from logs in the terminal that events are being generated</li>
+  <li>NOTE: This data is historical. It starts from an arbitrary date in August 2018 and continues up to today.</li>
 </ul>
 </details>
 
@@ -83,7 +84,24 @@ exports.handler = (event, context, callback) => {
 </ul>
 </details>
 
-# Level 3 - Multi Site Notification
+# Level 3 - Kinesis Data Analytics
+- Goal - Use Kinesis Data Analytics to add a lambda function for pre-processing records
+  - Replace `NA` with values of zero on field `barometricPressure`
+- Hook up the output of the pre processing to your original lambda function
+<details><summary>Helpful docs</summary>
+<ul>
+  <li>https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html</li>
+</ul>
+</details>
+<details><summary>Hints</summary>
+<ul>
+  <li>Be very careful with the IAM role for Data Analytics permissions</li>
+  <li>Make sure the data streaming application is running when using DA</li>
+  <li>Data is base64 encoded!</li>
+</ul>
+</details>
+
+# Level 4 - Multi Site Notification
 - Goal - Find the best time to go fly at more than one location
 - Use this website to determine the best conditions at another location or locations
   - https://www.sdhgpa.com/sites-guide.html
@@ -99,23 +117,9 @@ exports.handler = (event, context, callback) => {
 </ul>
 </details>
 
-# Level 4 - Kinesis Data Analytics
-- Goal - Use Kinesis Data Analytics to add a lambda function for pre-processing records
-  - Replace `NA` with values of zero on field `barometricPressure`
-  - Check output of the processing of the new lambda function
-- Helpful docs
-  - https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html
-<details><summary>Hints</summary>
-<ul>
-  <li>Be very careful with the IAM role for Data Analytics permissions</li>
-  <li>Make sure the data streaming application is running when using DA</li>
-  <li>Data is base64 encoded!</li>
-</ul>
-</details>
-
 # BOSS Level - Real Time Analytics with SQL
 <p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/24ee58920381e83562f9780036a8df86ef9dec18/687474703a2f2f696d61676573322e66616e706f702e636f6d2f696d6167652f70686f746f732f31303430303030302f426f777365722d6e696e74656e646f2d76696c6c61696e732d31303430333230332d3530302d3431332e6a7067"><img src="https://camo.githubusercontent.com/24ee58920381e83562f9780036a8df86ef9dec18/687474703a2f2f696d61676573322e66616e706f702e636f6d2f696d6167652f70686f746f732f31303430303030302f426f777365722d6e696e74656e646f2d76696c6c61696e732d31303430333230332d3530302d3431332e6a7067" alt="boss" data-canonical-src="http://images2.fanpop.com/image/photos/10400000/Bowser-nintendo-villains-10403203-500-413.jpg" style="max-width:100%;"></a></p>
 
-- Within the Kinesis Data Analytics Application you created for step 4 use the SQL editor to perform real time analytics on the data
-- Create a new SQL query using the templated SQL examples. Use the source data a guide
+- Within the Kinesis Data Analytics Application you created for step 3 use the SQL editor to perform real time analytics on the data
+- Create a new SQL query using the templated SQL examples. Use the source data as a guide
 - Attach the resulting stream of the real time analytics to your original lambda function
