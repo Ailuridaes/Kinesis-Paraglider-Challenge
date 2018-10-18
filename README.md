@@ -14,7 +14,7 @@ The following tools and accounts are required to complete these instructions.
 
 # Level 0
 
-- Create a Kinesis stream in the AWS console
+- Create a Kinesis stream in the AWS console (make sure the Region is set to US-East-1)
   - Search for `Kinesis` in the services dropdown
   - Click `Create data steam` under the Kinesis data streams section on the Amazon Kinesis Dashboard
   - Give it a name and 1 shard
